@@ -1,0 +1,56 @@
+body {
+    background-color: rgb(0, 16, 17);
+    color: rgb(108, 207, 246);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 20px;
+}
+
+#title {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+#form_field {
+    text-align: center;
+    font-size: large;
+    
+}
+
+input[type=text] {
+    padding: 10px;
+    border-radius: 10px;
+    background-color:rgb(255, 255, 252);
+    color: black;
+    font-family: Verdana;
+}
+
+input[type=button] {
+    margin-left: 10px;
+    padding: 8px;
+    border-width: 2px;
+    border-color: rgb(108, 207, 246);
+    border-radius: 10px;
+    background-color: rgb(0, 16, 17);
+    color: rgb(108, 207, 246);
+    font-family: Verdana;
+}
+
+input[type=button]:hover {
+    border-color: rgb(255, 255, 252);
+    color: rgb(255, 255, 252);
+}
+
+#chart{
+    display: flex;
+    justify-content: center;
+
+}
+
+rect{
+    fill:rgb(0, 16, 17);
+}
+
+text{
+    fill:rgb(108, 207, 246)
+}
