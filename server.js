@@ -63,31 +63,31 @@ function getLanguageStats(username, repos) {
 
     return new Promise((resolve, reject) =>{
 
-        var get_stats = new Promise((resolve, reject) => {
+        var stats = {}
+        repos.forEach(function (repo, index) {
+            console.log(repo['name'])
 
-            var stats = {}
-            repos.forEach(function (repo, index) {
-                url = "https://api.github.com/repos/" + username + "/" + repo['name'] + "/languages"
-    
-                GithubRequest(url).then(languages => {
-                        for (const [key, value] of Object.entries(languages)) {
-                            if (stats[key] == undefined){
-                                stats[key] = value
-                            }
-                            else{
-                                stats[key] = stats[key] + value
-                                if (index === repos.length -1) {
-                                    console.log("All data from github achived")
-                                    resolve(stats)
-                                }
-                            }
-                        }      
-                })
+            url = "https://api.github.com/repos/" + username + "/" + repo['name'] + "/languages"
 
-            }) 
-        })
+            GithubRequest(url).then(languages => {
+                console.log(languages)
+                for (const [key, value] of Object.entries(languages)) {
+                    console.log(languages + " " + key)
 
-        get_stats.then(stats => {resolve(stats)})
+                    if (stats[key] == undefined){
+                        stats[key] = value
+                    }
+                    else{
+                        stats[key] = stats[key] + value
+                    }
+                }     
+                if (index == (repos.length -1)) {
+                    console.log("All data from github achived")
+                    resolve(stats)
+                }
+            })
+
+        }) 
     })
 }
 
@@ -127,10 +127,11 @@ function getReposName(username) {
                     reject("Failed to get date from Github")
                 }
                 else {
+                    console.log(res)
                     var repos = JSON.parse(res.body)
 
                     repos.forEach(function (item, index) {
-                        repos[index] = {"name" : item['name'], "stats" : null }
+                        repos[index] = {"name" : item['name']}
                     })
             
                     resolve(repos)
