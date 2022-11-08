@@ -9,5 +9,5 @@ before_install:
 
 script:
     - docker run -p 8080:8080 express& #run the container in background
-    - sleep 30; curl 127.0.0.1/8080/user/KarolPlonka
+    - sleep 30; curl 127.0.0.1:8080/user/KarolPlonka
 
