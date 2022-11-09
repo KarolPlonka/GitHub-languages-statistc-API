@@ -61,7 +61,7 @@ stages:
               namespace: 'default'
               secretType: 'dockerRegistry'
               secretName: '$(acrsecret)'
-              dockerRegistryEndpoint: 'K8SExamplesACR'
+              dockerRegistryEndpoint: 'dockerhub.com_karolplonka'
           - task: replacetokens@3
             displayName: Replace Tokens
             inputs:
