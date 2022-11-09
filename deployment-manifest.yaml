@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: githubapi-deployment
+  labels:
+    app: githubapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: githubapi
+  template:
+    metadata:
+      labels:
+        app: githubapi
+    spec:
+      containers:
+      - name: nccoffee
+        image: karolplonka/nodejs_api:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
