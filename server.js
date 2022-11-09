@@ -65,14 +65,11 @@ function getLanguageStats(username, repos) {
 
         var stats = {}
         repos.forEach(function (repo, index) {
-            console.log(repo['name'])
 
             url = "https://api.github.com/repos/" + username + "/" + repo['name'] + "/languages"
 
             GithubRequest(url).then(languages => {
-                console.log(languages)
                 for (const [key, value] of Object.entries(languages)) {
-                    console.log(languages + " " + key)
 
                     if (stats[key] == undefined){
                         stats[key] = value
@@ -127,7 +124,6 @@ function getReposName(username) {
                     reject("Failed to get date from Github")
                 }
                 else {
-                    console.log(res)
                     var repos = JSON.parse(res.body)
 
                     repos.forEach(function (item, index) {

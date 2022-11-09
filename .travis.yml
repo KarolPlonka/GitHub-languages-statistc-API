@@ -1,6 +1,15 @@
 arch:
     - arm64
 
+dist:
+    - xenial
+
+os:
+    - linux
+
+language: 
+    - ruby
+
 services:
     - docker
 
@@ -16,8 +25,9 @@ deploy:
   username: ${AZURE_USERNAME}
   password: ${AZURE_PASSWORD}
   site: githubapi
+  verbose: true
 
-after_succes:
+after_success:
     - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
     - docker commit $(docker ps | head -2 | tail -1 | awk '{print $1}') karolplonka/nodejs_api
     - docker push karolplonka/nodejs_api #push corrent container to docker hub
