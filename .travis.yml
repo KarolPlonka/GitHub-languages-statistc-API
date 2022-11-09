@@ -11,6 +11,12 @@ script:
     - docker run -p 80:80 express& #run the container in background
     - sleep 10; curl 127.0.0.1:80/user/KarolPlonka #wait x seconds and test the get requset 
 
+deploy:
+  provider: azure_web_apps
+  username: ${AZURE_USERNAME}
+  password: ${AZURE_PASSWORD}
+  site: githubapi
+
 after_succes:
     - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
     - docker commit $(docker ps | head -2 | tail -1 | awk '{print $1}') karolplonka/nodejs_api
