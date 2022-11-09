@@ -15,6 +15,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
+      name: local
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
@@ -44,6 +45,7 @@ stages:
     displayName: Deploy to AKS
     environment: 'k8sdev.default'
     pool: 
+      name: local
       vmImage: ubuntu-latest
     strategy:
       runOnce:
