@@ -26,13 +26,20 @@ app.get('/', (req, res) => {
 })
 
 app.get('/user/:id', (req, res) => {
-    /* REST API */
+    /* GET DATA */
+    //res.status(200).send({"python": 0.7, "java": 0.3})
+    //return 
     console.log("request made for " + req.params.id)
-    getReposName(req.params.id).then(repos => {
-        getLanguageStats(req.params.id, repos).then(stats => {
-            res.status(200).send(getStatsByFrac(stats))
+    getReposName(req.params.id)
+        .catch((error) => {
+            res.status(404).send({error: "User not found"})
+            return
         })
-    })
+        .then(repos => {
+            getLanguageStats(req.params.id, repos).then(stats => {
+                res.status(200).send(getStatsByFrac(stats))
+            })
+        })
 })
 
 function GithubRequest(url) {
@@ -41,8 +48,7 @@ function GithubRequest(url) {
             {
                 url: url,
                 method: 'GET',
-                headers: {'user-agent': 'node.js'},
-                OAUth: "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"
+                headers: {'user-agent': 'node.js'}
             },
 
             (error, res) => {
@@ -106,55 +112,26 @@ function getStatsByFrac(stats) {
 
 
 function getReposName(username) {
-    /* https://api.github.com/users/KarolPlonka */
 
     return new Promise((resolve, reject) =>{
+        var url = 'https://api.github.com/users/' + username + '/repos'
 
-        request(
-            {
-                url: 'https://api.github.com/users/' + username + '/repos',
-                method: 'GET',
-                headers: {'user-agent': 'node.js'},
-                OAUth: "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"
-            },
-    
-            (error, res) => {
-                if(error) {
-                    console.log("Failed to get date from Github");
-                    reject("Failed to get date from Github")
-                }
-                else {
-                    var repos = JSON.parse(res.body)
+        GithubRequest(url).then(repos => {
 
-                    repos.forEach(function (item, index) {
-                        repos[index] = {"name" : item['name']}
-                    })
-            
-                    resolve(repos)
-                }
+            if (repos.message == "Not Found"){
+                console.log("user not found")
+                reject("User not found")
             }
-        )
 
-
-
-
+            repos.forEach(function (item, index) {
+                repos[index] = {"name" : item['name']}
+            })
+    
+            resolve(repos)
+        })
     })
 
 }
-
-
-app.get('/stats', (req, res) => {
-    /* WEBSITE */
-    console.log("request made for " + req.body.value)
-    res.status(200).send({"python": 1})
-
-    /*
-    getReposName(req.body.value).then(repos => {
-        getLanguageStats(req.params.id, repos).then(stats => {
-            res.status(200).send(getStatsByFrac(stats))
-        })
-    })*/
-})
 
 
 
