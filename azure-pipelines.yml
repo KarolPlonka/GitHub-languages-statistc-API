@@ -5,8 +5,8 @@ resources:
 - repo: self
 
 variables:
-  imageRepo: sampleapp
-  tag: '$(Build.BuildId)'
+  image_repo: 'karolplonka/nodejs_api'
+  tag: 'latest'
 
 stages:
 - stage: Build
@@ -16,28 +16,33 @@ stages:
     displayName: Build
     pool:
       name: local
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build and push docker image
       inputs:
         containerRegistry: 'dockerhub.com_karolplonka'
-        repository: '$(imageRepo)'
+        repository: '$(image_repo)'
         command: 'buildAndPush'
-        Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: '$(tag)'
+    
+    
+    #- task: PublishPipelineArtifact@1
+    #  displayName: Publish Pipeline Artifact
+    #  inputs:
+    #    targetPath: '$(Pipeline.Workspace)/s/kubernetes'
+    #    artifact: 'manifests'
+    #    publishLocation: 'pipeline'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)/s/kubernetes'
-        artifact: 'manifests'
-        publishLocation: 'pipeline'
+        artifactName: 'manifests'
+        path: 'manifests'    
         
 - stage: Deploy
   displayName: Deploy to Dev
   dependsOn: Build
   variables:
     acrsecret: k8sexamplesacrauth
-    acrdevurl: 'k8sexamplesacr.azurecr.io'
     replicaNo: 3
   jobs:
   - deployment: Deploy
@@ -45,7 +50,6 @@ stages:
     environment: 'k8sdev.default'
     pool: 
       name: local
-      vmImage: ubuntu-latest
     strategy:
       runOnce:
         deploy:
@@ -62,6 +66,8 @@ stages:
               secretType: 'dockerRegistry'
               secretName: '$(acrsecret)'
               dockerRegistryEndpoint: 'dockerhub.com_karolplonka'
+          
+          
           - task: replacetokens@3
             displayName: Replace Tokens
             inputs:
@@ -76,12 +82,25 @@ stages:
               useLegacyPattern: false
               enableTransforms: false
               enableTelemetry: true
+          #- task: KubernetesManifest@0
+          #  inputs:
+          #    action: 'deploy'
+          #    kubernetesServiceConnection: 'kubernetes_githubapi'
+          #    namespace: 'default'
+          #    manifests: |
+          #      $(Pipeline.Workspace)/manifests/deployment.yml
+          #      $(Pipeline.Workspace)/manifests/service.yml
+          #    containers: '$(imageRepo):$(tag)'
+          #    imagePullSecrets: '$(acrsecret)'
           - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
             inputs:
-              action: 'deploy'
+              action: deploy
               namespace: 'default'
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
-              containers: '$(acrdevurl)/$(imageRepo):$(tag)'
-              imagePullSecrets: '$(acrsecret)'
+                $(System.ArtifactsDirectory)/manifests/deployment.yml
+                $(System.ArtifactsDirectory)/manifests/service.yml
+              imagePullSecrets: |
+                $(acrsecret)
+              containers: |
+                $(imageRepository):$(tag)
