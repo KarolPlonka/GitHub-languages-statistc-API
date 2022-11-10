@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 variables:
-  imageRepo: 'nodejs_api'
+  image_repo: 'nodejs_api'
   tag: '$(Build.BuildId)'
 
 stages:
@@ -22,7 +22,7 @@ stages:
       displayName: Build and push docker image
       inputs:
         containerRegistry: 'dockerhub.com_karolplonka'
-        repository: '$(image_Repo)'
+        repository: '$(image_repo)'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
     
