@@ -95,8 +95,5 @@ stages:
             inputs:
               connectionType: 'Kubernetes Service Connection'
               kubernetesServiceEndpoint: 'kubernetes_githubapi'
-              namespace: 'default'
               command: 'delete'
               arguments: '--all pods'
-              secretType: 'generic'
-              forceUpdate: false
