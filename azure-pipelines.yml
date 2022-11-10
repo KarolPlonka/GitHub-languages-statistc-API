@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 variables:
-  imageRepo: nodejs_api
+  imageRepo: karolplonka/nodejs_api
   tag: '$(Build.BuildId)'
 
 stages:
