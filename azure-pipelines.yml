@@ -90,7 +90,8 @@ stages:
               containers: |
                 $(imageRepository):$(tag)
 
-          - task: Kubernetes@1
+          - task: Kubernetes@1 #half messure, restart pods to get new containter image form docker hub
+            displayName: Restart pods
             inputs:
               connectionType: 'Kubernetes Service Connection'
               kubernetesServiceEndpoint: 'kubernetes_githubapi'
