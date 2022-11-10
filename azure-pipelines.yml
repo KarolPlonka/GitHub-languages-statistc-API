@@ -23,13 +23,21 @@ stages:
         containerRegistry: 'dockerhub.com_karolplonka'
         command: 'login'
     - task: Docker@2
-      displayName: Build and push an image
+      displayName: Buildan image
+      inputs:
+        containerRegistry: 'dockerhub.com_karolplonka'
+        repository: '$(imageRepo)'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
+    - task: Docker@2
+      displayName: push an image
       inputs:
         containerRegistry: 'dockerhub.com_karolplonka'
         repository: '$(imageRepo)'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: latest
+        tags: '$(tag)'
     
     - task: PublishPipelineArtifact@1
       inputs:
