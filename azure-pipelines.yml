@@ -58,7 +58,7 @@ stages:
             inputs:
               buildType: 'current'
               artifactName: 'manifests'
-              targetPath: '$(Pipeline.Workspace)/manifests'
+              targetPath: '$(System.ArtifactsDirectory)/manifests'
           - task: KubernetesManifest@0
             inputs:
               action: 'createSecret'
