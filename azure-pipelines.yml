@@ -16,7 +16,6 @@ stages:
     displayName: Build
     pool:
       name: local
-      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       displayName: Build and push docker image
@@ -46,7 +45,6 @@ stages:
     environment: 'k8sdev.default'
     pool: 
       name: local
-      vmImage: ubuntu-latest
     strategy:
       runOnce:
         deploy:
