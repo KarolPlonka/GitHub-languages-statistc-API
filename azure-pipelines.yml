@@ -29,7 +29,7 @@ stages:
         repository: '$(imageRepo)'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+        tags: latest
     
     - task: PublishPipelineArtifact@1
       inputs:
