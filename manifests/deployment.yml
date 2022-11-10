@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nccoffee
-        image: karolplonka/nodejs_api:latest
+        image: karolplonka/nodejs_api:!insert_tag!
         imagePullPolicy: Always
         ports:
         - containerPort: 80
