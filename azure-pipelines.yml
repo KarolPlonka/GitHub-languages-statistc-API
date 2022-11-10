@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 variables:
-  image_repo: 'nodejs_api'
+  image_repo: 'karolplonka/nodejs_api'
   tag: '$(Build.BuildId)'
 
 stages:
@@ -24,6 +24,7 @@ stages:
         repository: '$(image_repo)'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: 'latest'
     
     
     - task: PublishPipelineArtifact@1
@@ -61,6 +62,8 @@ stages:
               secretType: 'dockerRegistry'
               secretName: '$(acrsecret)'
               dockerRegistryEndpoint: 'dockerhub.com_karolplonka'
+          
+          
           - task: replacetokens@3
             displayName: Replace Tokens
             inputs:
