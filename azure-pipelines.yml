@@ -19,13 +19,14 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build and push an image
       inputs:
         containerRegistry: 'dockerhub.com_karolplonka'
         repository: '$(imageRepo)'
         command: 'buildAndPush'
-        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
+        
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Pipeline.Workspace)/s/kubernetes'
@@ -37,7 +38,6 @@ stages:
   dependsOn: Build
   variables:
     acrsecret: k8sexamplesacrauth
-    acrdevurl: 'k8sexamplesacr.azurecr.io'
     replicaNo: 3
   jobs:
   - deployment: Deploy
@@ -83,5 +83,5 @@ stages:
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
-              containers: '$(acrdevurl)/$(imageRepo):$(tag)'
+              containers: '$(imageRepo):$(tag)'
               imagePullSecrets: '$(acrsecret)'
