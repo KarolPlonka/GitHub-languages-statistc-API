@@ -35,7 +35,7 @@ stages:
   dependsOn: Build
   variables:
     acrsecret: k8sexamplesacrauth
-    replicaNo: 3
+    insert_tag: '$(tag)'
   jobs:
   - deployment: Deploy
     displayName: Deploy to AKS
@@ -71,8 +71,8 @@ stages:
               writeBOM: true
               actionOnMissing: 'warn'
               keepToken: false
-              tokenPrefix: '#'
-              tokenSuffix: '#'
+              tokenPrefix: '!'
+              tokenSuffix: '!'
               useLegacyPattern: false
               enableTransforms: false
               enableTelemetry: true
