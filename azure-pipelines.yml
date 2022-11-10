@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 variables:
-  imageRepo: karolplonka/nodejs_api
+  imageRepo: 'karolplonka/nodejs_api'
   tag: '$(Build.BuildId)'
 
 stages:
@@ -28,7 +28,7 @@ stages:
         containerRegistry: 'dockerhub.com_karolplonka'
         repository: '$(imageRepo)'
         command: 'build'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: '$(tag)'
     - task: Docker@2
       displayName: push an image
@@ -36,7 +36,7 @@ stages:
         containerRegistry: 'dockerhub.com_karolplonka'
         repository: '$(imageRepo)'
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: '$(tag)'
     
     - task: PublishPipelineArtifact@1
