@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 variables:
-  imageRepo: sampleapp
+  imageRepo: nodejs_api
   tag: '$(Build.BuildId)'
 
 stages:
@@ -24,7 +24,7 @@ stages:
         containerRegistry: 'dockerhub.com_karolplonka'
         repository: '$(imageRepo)'
         command: 'buildAndPush'
-        Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: '$(tag)'
     - task: PublishPipelineArtifact@1
       inputs:
