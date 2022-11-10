@@ -81,6 +81,7 @@ stages:
           - task: KubernetesManifest@0
             inputs:
               action: 'deploy'
+              kubernetesServiceConnection: 'kubernetes_githubapi'
               namespace: 'default'
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
