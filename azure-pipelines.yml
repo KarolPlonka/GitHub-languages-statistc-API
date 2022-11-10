@@ -6,7 +6,7 @@ resources:
 
 variables:
   image_repo: 'karolplonka/nodejs_api'
-  tag: '$(Build.BuildId)'
+  tag: 'latest'
 
 stages:
 - stage: Build
@@ -24,7 +24,7 @@ stages:
         repository: '$(image_repo)'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: 'latest'
+        tags: '$(tag)'
     
     
     - task: PublishPipelineArtifact@1
