@@ -6,7 +6,7 @@ resources:
 
 variables:
   image_repo: 'karolplonka/nodejs_api'
-  tag: '$(Build.BuildId)'
+  tag: 'latest'
 
 stages:
 - stage: Build
@@ -89,3 +89,13 @@ stages:
                 $(acrsecret)
               containers: |
                 $(imageRepository):$(tag)
+
+          - task: Kubernetes@1
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'kubernetes_githubapi'
+              namespace: 'default'
+              command: 'delete'
+              arguments: '--all pods'
+              secretType: 'generic'
+              forceUpdate: false
