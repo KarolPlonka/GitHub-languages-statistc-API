@@ -11,8 +11,17 @@ body {
 }
 
 #form_field {
+    float: left;
     font-size: large;
     margin-left: 20px;
+    width: 30%;
+}
+
+#error_field {
+    float: left;
+    font-size: large;
+    margin-left: 20px;
+    width: 60%;
 }
 
 #api_table{
@@ -20,17 +29,9 @@ body {
     width: 60%;
 }
 
-table{
-  border: 2px solid rgb(108, 207, 246);
-}
-
-caption{
-    margin: 0;
-    padding: 121px;
-}
-
-th, td {
-    border: 1px solid rgb(108, 207, 246);
+table,th, td {
+    border-collapse: collapse;
+    border: 2px solid rgb(108, 207, 246);
     padding: 7px;
 }
 

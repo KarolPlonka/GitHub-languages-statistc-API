@@ -2,6 +2,7 @@ google.charts.load('current', {'packages':['corechart']});
 
 const input = document.getElementById('post')
 const Btn = document.getElementById('send')
+const error_div = document.getElementById('error_field')
 const chart_div = document.getElementById('piechart')
 
 
@@ -33,11 +34,14 @@ async function buttonClick(e) {
         var options = {'title':'Language use', 'width':800, 'height':400}
     
         var chart = new google.visualization.PieChart(document.getElementById('piechart'))
+
+        error_div.innerHTML = ""
         chart.draw(dataTableData, options)
     }
 
     else if(res.status == 404){
-        chart_div.innerHTML = "<i>User not found</i>"
+        error_div.innerHTML = "<i>User not found</i>"
+        chart_div.innerHTML = ""
     }
 
 }
