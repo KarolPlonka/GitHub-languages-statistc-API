@@ -5,7 +5,6 @@ const Btn = document.getElementById('send')
 const chart_div = document.getElementById('piechart')
 
 
-const baseUrl = 'http://localhost/'
 
 Btn.addEventListener('click', buttonClick)
 input.addEventListener("keypress", function(e) {
@@ -18,7 +17,7 @@ input.addEventListener("keypress", function(e) {
 async function buttonClick(e) {
     e.preventDefault()
     
-    const res = await fetch(baseUrl + "user/" + input.value,
+    const res = await fetch("user/" + input.value,
     {
         method: 'GET'
     })
@@ -31,7 +30,7 @@ async function buttonClick(e) {
         dataArray.unshift(['Language', 'usage'])
     
         var dataTableData = google.visualization.arrayToDataTable(dataArray)
-        var options = {'title':'Languages use', 'width':800, 'height':400}
+        var options = {'title':'Language use', 'width':800, 'height':400}
     
         var chart = new google.visualization.PieChart(document.getElementById('piechart'))
         chart.draw(dataTableData, options)
