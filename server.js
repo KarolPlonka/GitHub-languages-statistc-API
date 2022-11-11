@@ -17,7 +17,9 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get('(/frac)?/userr/:id', (req, res) => {
+app.get('(/frac)?/user/:id', (req, res) => {
+    res.status(200).send({"pyhon": 1})
+    return
     /* GET DATA */
     console.log("request made for " + req.params.id)
     getReposName(req.params.id)
