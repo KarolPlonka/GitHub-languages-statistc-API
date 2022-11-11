@@ -24,10 +24,10 @@ app.get('(/frac)?/user/:id', (req, res) => {
         .catch((error) => {                                 //better error handling required
             res.status(404).send({error: "User not found"}) //better error handling required
         })
-        .then(repos => {
-            getLanguageStats(req.params.id, repos)
-        .then(stats => {
-                res.status(200).send(getStatsByFrac(stats))
+        .then(data => {
+            getLanguageStats(req.params.id, data)
+        .then(data => {
+                res.status(200).send(getStatsByFrac(data))
         })
         })
 })
@@ -39,10 +39,10 @@ app.get('/bytes/user/:id', (req, res) => {
         .catch((error) => {                                 //better error handling required
             res.status(404).send({error: "User not found"}) //better error handling required
         })
-        .then(repos => {
-            getLanguageStats(req.params.id, repos)
-        .then(stats => {
-            res.status(200).send(stats)
+        .then(data => {
+            getLanguageStats(req.params.id, data)
+        .then(data => {
+            res.status(200).send(data)
         })
         })
 })
@@ -69,13 +69,13 @@ function GithubRequest(url) {
 }
 
 
-function getLanguageStats(username, repos) {
+function getLanguageStats(username, data) {
     console.log("getting stats")
 
     return new Promise((resolve, reject) =>{
 
         var stats = {}
-        repos.forEach(function (repo, index) {
+        data['repos_names'].forEach(function (repo, index) {
 
             url = "https://api.github.com/repos/" + username + "/" + repo['name'] + "/languages"
 
@@ -89,9 +89,10 @@ function getLanguageStats(username, repos) {
                         stats[key] = stats[key] + value
                     }
                 }     
-                if (index == (repos.length -1)) {
+                if (index == (data['repos_names'].length -1)) {
                     console.log("All data from github achived")
-                    resolve(stats)
+                    data['lang_stats'] = stats
+                    resolve(data)
                 }
             })
 
@@ -100,17 +101,16 @@ function getLanguageStats(username, repos) {
 }
 
 
-function getStatsByFrac(stats) {
+function getStatsByFrac(data) {
 
-    var sum = Object.values(stats).reduce((a, b) => a + b, 0)
+    var sum = Object.values(data['lang_stats']).reduce((a, b) => a + b, 0)
 
-    var stats_by_frac = {}
-
-    for (const [key, value] of Object.entries(stats)) {
-        stats_by_frac[key] = value / sum
+    for (const [key, value] of Object.entries(data['lang_stats'])) {
+        data['lang_stats'][key] = value / sum
     }
 
-    return stats_by_frac
+
+    return data
 
 }
 
@@ -132,7 +132,11 @@ function getReposName(username) {
                 repos[index] = {"name" : item['name']}
             })
     
-            resolve(repos)
+            resolve({
+                'username' : username,
+                'repos_names' : repos,
+                'lang_stats' : null
+            })
         })
     })
 

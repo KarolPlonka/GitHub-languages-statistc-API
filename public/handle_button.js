@@ -24,7 +24,7 @@ async function buttonClick(e) {
 
     if (res.ok){
         var data = await res.json()
-        console.log(data)
+        data = data['lang_stats']
     
         var dataArray = Object.keys(data).map((key) => [key, Math.round(data[key] * 100)])
         dataArray.unshift(['Language', 'usage'])
