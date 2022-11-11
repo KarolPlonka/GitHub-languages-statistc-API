@@ -63,15 +63,6 @@ stages:
         artifactName: 'manifests'
         path: 'manifests'    
 
-- stage: Tests
-  jobs:
-  - job: Test
-    displayName: Test the build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - script: echo Hello world!
-
 
         
 - stage: Deploy
