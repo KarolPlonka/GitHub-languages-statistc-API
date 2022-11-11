@@ -20,4 +20,4 @@ REST API that's allow's you to check your languages over all your public reposit
 - Dokcer
 - DockerHub
 - Azure DevOps (Pipelines)
-- Kubernetes (AKS)
+- Azure Kubernetes Service
