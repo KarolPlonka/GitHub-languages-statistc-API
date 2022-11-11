@@ -9,6 +9,8 @@ variables:
   tag: '$(Build.BuildId)' #'latest'
   test_script_path: '$(Build.SourcesDirectory)'
   test_script_name: 'test_build.sh'
+  pool_name: 'local' #Azure Pipelines
+
 
 stages:
 - stage: Build
@@ -19,6 +21,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
+      name: '$(pool_name)'
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
@@ -76,6 +79,7 @@ stages:
     displayName: Deploy to AKS
     environment: 'k8sdev.default'
     pool: 
+      name: '$(pool_name)'
       vmImage: ubuntu-latest
     strategy:
       runOnce:
