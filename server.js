@@ -1,4 +1,21 @@
+const express = require('express')
+const fs = require('fs')
+const request = require('request')
 
+const app = express()
+
+const PORT = 80
+
+app.use(express.static(__dirname + '/public'))
+app.use(express.json())
+
+app.get('/', (req, res) => {
+    /*DISPLAY HTML HOME*/
+    fs.readFile('./public/home.html', 'utf-8', (err, html) => {
+        if (err) {res.status(500).send(`Couldn't load home site`)}
+        else     {res.send(html)}
+    })
+})
 
 app.get('(/frac)?/user/:id', (req, res) => {
     /* GET DATA */
