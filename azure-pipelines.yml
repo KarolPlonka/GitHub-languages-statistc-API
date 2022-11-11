@@ -7,10 +7,14 @@ resources:
 variables:
   image_repo: 'karolplonka/nodejs_api'
   tag: '$(Build.BuildId)' #'latest'
+  test_script_path: '$(Build.SourcesDirectory)'
+  test_script_name: 'test_build.sh'
 
 stages:
 - stage: Build
   displayName: Build image
+  variables:
+    insert_tag: '$(tag)'
   jobs:
   - job: Build
     displayName: Build
@@ -18,17 +22,57 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build and push docker image
+      displayName: Build docker image
       inputs:
         containerRegistry: 'dockerhub.com_karolplonka'
         repository: '$(image_repo)'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: '$(tag)'
+
+    
+    - task: replacetokens@3
+      displayName: Write docker image tag to test sript
+      inputs:
+        rootDirectory: '$(test_script_path)'
+        targetFiles: 'test_build.sh'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '!'
+        tokenSuffix: '!'
+        useLegacyPattern: false
+        enableTransforms: false
+        enableTelemetry: true
+    
+    - script: 'sh $(test_script_path)/$(test_script_name)'
+      displayName: Test docker image
+
+    - task: Docker@2
+      displayName: Push docker image
+      inputs:
+        containerRegistry: 'dockerhub.com_karolplonka'
+        repository: '$(image_repo)'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: '$(tag)'
+
     - task: PublishPipelineArtifact@1
       inputs:
         artifactName: 'manifests'
         path: 'manifests'    
+
+- stage: Tests
+  jobs:
+  - job: Test
+    displayName: Test the build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: echo Hello world!
+
+
         
 - stage: Deploy
   displayName: Deploy to Dev
