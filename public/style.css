@@ -2,20 +2,46 @@ body {
     background-color: rgb(0, 16, 17);
     color: rgb(108, 207, 246);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-top: 20px;
+    margin: 20px;
 }
 
 #title {
-    text-align: center;
     font-size: xx-large;
     font-weight: bolder;
 }
 
 #form_field {
-    text-align: center;
     font-size: large;
-    
+    margin-left: 20px;
 }
+
+#api_table{
+    margin-left: 20px;
+    width: 60%;
+}
+
+table{
+  border: 2px solid rgb(108, 207, 246);
+}
+
+caption{
+    margin: 0;
+    padding: 121px;
+}
+
+th, td {
+    border: 1px solid rgb(108, 207, 246);
+    padding: 7px;
+}
+
+td:first-child{ text-align: center;}
+td:nth-child(2){ font-family: consolas;}
+td:last-child{
+    font-size: small;
+    width: 20%;
+}
+
+
 
 input[type=text] {
     padding: 10px;
@@ -41,11 +67,6 @@ input[type=button]:hover {
     color: rgb(255, 255, 252);
 }
 
-#chart{
-    display: flex;
-    justify-content: center;
-
-}
 
 rect{
     fill:rgb(0, 16, 17);
@@ -53,4 +74,9 @@ rect{
 
 text{
     fill:rgb(108, 207, 246)
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
 }

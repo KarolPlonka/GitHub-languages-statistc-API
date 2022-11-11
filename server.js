@@ -1,44 +1,49 @@
-const express = require('express');
-const fs = require('fs');
-const request = require('request');
-const qs = require('querystring');
-const { callbackify } = require('util');
+const express = require('express')
+const fs = require('fs')
+const request = require('request')
 
+const app = express()
 
+const PORT = 80
 
-const app = express();
-
-const PORT = 80;
-
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'))
 app.use(express.json())
 
 app.get('/', (req, res) => {
     /*DISPLAY HTML HOME*/
     fs.readFile('./public/home.html', 'utf-8', (err, html) => {
-
-        if (err) {
-            res.status(500).send(`Couldn't load home site`);
-        }
-
-        res.send(html);
+        if (err) {res.status(500).send(`Couldn't load home site`)}
+        else     {res.send(html)}
     })
 })
 
-app.get('/user/:id', (req, res) => {
+app.get('(/frac)?/user/:id', (req, res) => {
     /* GET DATA */
-    //res.status(200).send({"python": 0.7, "java": 0.3})
-    //return 
     console.log("request made for " + req.params.id)
     getReposName(req.params.id)
-        .catch((error) => {
-            res.status(404).send({error: "User not found"})
-            return
+        .catch((error) => {                                 //better error handling required
+            res.status(404).send({error: "User not found"}) //better error handling required
         })
         .then(repos => {
-            getLanguageStats(req.params.id, repos).then(stats => {
+            getLanguageStats(req.params.id, repos)
+        .then(stats => {
                 res.status(200).send(getStatsByFrac(stats))
-            })
+        })
+        })
+})
+
+app.get('/bytes/user/:id', (req, res) => {
+    /* GET DATA */
+    console.log("request made for " + req.params.id)
+    getReposName(req.params.id)
+        .catch((error) => {                                 //better error handling required
+            res.status(404).send({error: "User not found"}) //better error handling required
+        })
+        .then(repos => {
+            getLanguageStats(req.params.id, repos)
+        .then(stats => {
+            res.status(200).send(stats)
+        })
         })
 })
 

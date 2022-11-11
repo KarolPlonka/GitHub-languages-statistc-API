@@ -15,7 +15,7 @@ spec:
         app: githubapi
     spec:
       containers:
-      - name: nccoffee
+      - name: githubapi_container
         image: karolplonka/nodejs_api:!insert_tag!
         imagePullPolicy: Always
         ports:

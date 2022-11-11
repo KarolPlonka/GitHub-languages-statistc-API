@@ -5,7 +5,7 @@
     </head>
     <body>
         <div id = "title">
-            Check your GitHub repositories language statistics t1
+            Check your GitHub repositories language statistics
         </div>
         <br><br>
 
@@ -16,11 +16,30 @@
             </form>
 
         </div>
-
         <br><br>
+        <div id="piechart"></div>
 
-        <div id='chart'>
-            <div id="piechart"></div>
+        
+
+        <div id="api_table" class="center">
+            REST API Requests:<br><br>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>URL</th>
+                    <th>Describtion</th>
+                    </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>http://20.31.147.188/frac/user/<i>'GitHubUsername'</i></td>
+                    <td>Sends languages use data as fraction of usage.</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>http://20.31.147.188/bytes/user/<i>'GitHubUsername'</i></td>
+                    <td>Sends languages use data as amount of bytes the code occupies.</td>
+                </tr>
+            </table>
         </div>
 
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
