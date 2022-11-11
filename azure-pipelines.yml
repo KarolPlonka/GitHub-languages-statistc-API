@@ -9,7 +9,7 @@ variables:
   tag: '$(Build.BuildId)' #'latest'
   test_script_path: '$(Build.SourcesDirectory)'
   test_script_name: 'test_build.sh'
-  pool_name: 'local' #Azure Pipelines
+  pool_name: 'Azure Pipelines' #local
 
 
 stages:
