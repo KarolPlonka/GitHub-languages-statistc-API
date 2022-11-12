@@ -82,7 +82,7 @@ function getLanguageStats(username, data) {
         var stats = {}
         data['repos_names'].forEach(function (repo, index) {
 
-            url = "https://api.github.com/repos/" + username + "/" + repo['name'] + "/languages"
+            url = "https://api.github.com/repos/" + username + "/" + repo + "/languages"
 
             GithubRequest(url).then(languages => {
                 for (const [key, value] of Object.entries(languages)) {
@@ -134,7 +134,7 @@ function getReposName(username) {
             }
 
             repos.forEach(function (item, index) {
-                repos[index] = {"name" : item['name']}
+                repos[index] = item['name']
             })
     
             resolve({
