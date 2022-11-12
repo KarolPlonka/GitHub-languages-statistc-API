@@ -29,6 +29,7 @@ body {
     width: 60%;
 }
 
+
 table,th, td {
     border-collapse: collapse;
     border: 2px solid rgb(108, 207, 246);
@@ -41,7 +42,6 @@ td:last-child{
     font-size: small;
     width: 20%;
 }
-
 
 
 input[type=text] {
