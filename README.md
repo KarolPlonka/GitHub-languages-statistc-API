@@ -15,6 +15,11 @@ REST API that's allow's you to check your languages over all your public reposit
 
 <br>
 
+## Deployment process:
+![Alt text](diagram.png)
+
+<br>
+
 ## Used technologies:
 - Node.js
 - Dokcer
