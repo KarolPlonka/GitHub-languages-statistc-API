@@ -11,17 +11,17 @@ body {
 }
 
 #form_field {
-    float: left;
+    display: inline-block;
     font-size: large;
-    margin-left: 20px;
-    width: 30%;
+    margin: 20px;
+    width: 300px;
 }
 
 #error_field {
-    float: left;
+    display: inline-block;
     font-size: large;
-    margin-left: 20px;
-    width: 60%;
+    margin-top: 20px;
+    margin: 20px;
 }
 
 #api_table{

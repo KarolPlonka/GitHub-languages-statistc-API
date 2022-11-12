@@ -18,6 +18,10 @@ app.get('/', (req, res) => {
 })
 
 app.get('(/frac)?/user/:id', (req, res) => {
+
+    //res.status(200).send({"lang_stats": {'python':1}}) //for debuging
+    //return
+
     /* GET DATA */
     console.log("request made for " + req.params.id)
     getReposName(req.params.id)
@@ -27,13 +31,14 @@ app.get('(/frac)?/user/:id', (req, res) => {
         .then(data => {
             getLanguageStats(req.params.id, data)
         .then(data => {
-                res.status(200).send(getStatsByFrac(data))
+            res.status(200).send(getStatsByFrac(data))
         })
         })
 })
 
 app.get('/bytes/user/:id', (req, res) => {
     /* GET DATA */
+    
     console.log("request made for " + req.params.id)
     getReposName(req.params.id)
         .catch((error) => {                                 //better error handling required
