@@ -9,7 +9,7 @@ REST API that's allowes you to check your languages statistics over all your pub
 | GET  | `http://20.31.147.188/bytes/user/'GitHubUsername'`  |Sends languages use data as amount of bytes the code occupies. |
 
 <br>
-
+ 
 ## Website: http://20.31.147.188/
 ![Alt text](preview.png)
 
