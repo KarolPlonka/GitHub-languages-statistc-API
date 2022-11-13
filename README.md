@@ -1,5 +1,5 @@
-# GitHub-languages-statistc-API
-REST API that's allow's you to check your languages over all your public repositories.
+# GitHub-languages-statistic-API
+REST API that's allowes you to check your languages statistics over all your public repositories.
 
 <br>
 
@@ -22,7 +22,7 @@ REST API that's allow's you to check your languages over all your public reposit
 
 ## Used technologies:
 - Node.js
-- Dokcer
+- Docker
 - DockerHub
 - Azure DevOps (Pipelines)
 - Azure Kubernetes Service
