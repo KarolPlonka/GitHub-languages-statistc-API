@@ -3,10 +3,10 @@ REST API that's allowes you to check your languages statistics over all your pub
 
 <br>
 
-| Method  | URL | Describtion|
+| Method  | URL | Description|
 | ------------- | ------------- | ------------- |
 | GET  | `http://20.31.147.188/frac/user/'GitHubUsername'`  | Sends languages use data as fraction of usage. |
-| GET  | `http://20.31.147.188/bytes/user/'GitHubUsername'`  |Sends languages use data as amount of bytes the code occupies.. |
+| GET  | `http://20.31.147.188/bytes/user/'GitHubUsername'`  |Sends languages use data as amount of bytes the code occupies. |
 
 <br>
 
