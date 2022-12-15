@@ -1,4 +1,8 @@
-# GitHub-languages-statistic-API
+# GitHub-languages-statistic-API &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+# Status: Disabled
+
+<br>
+
 REST API that's allowes you to check your languages statistics over all your public repositories.
 
 <br>
