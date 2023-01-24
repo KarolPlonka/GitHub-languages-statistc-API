@@ -1,5 +1,5 @@
 # GitHub-languages-statistic-API &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-# Status: Disabled
+# Status: Offline :x:
 
 <br>
 
@@ -14,7 +14,6 @@ REST API that's allowes you to check your languages statistics over all your pub
 
 <br>
  
-## Website: http://20.31.147.188/
 ![Alt text](preview.png)
 
 <br>
