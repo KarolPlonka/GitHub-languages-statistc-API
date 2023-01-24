@@ -25,7 +25,9 @@ REST API that's allowes you to check your languages statistics over all your pub
 
 ## Used technologies:
 - Node.js
+- Express.js
 - Docker
 - DockerHub
+- GitHub Actions
 - Azure DevOps (Pipelines)
 - Azure Kubernetes Service
